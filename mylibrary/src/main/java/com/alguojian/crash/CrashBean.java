@@ -1,13 +1,19 @@
 package com.alguojian.crash;
 
+import org.litepal.crud.DataSupport;
+import org.litepal.crud.LitePalSupport;
+
+import java.io.Serializable;
+
 /**
  * ${Descript}
  *
  * @author alguojian
  * @date 2018/8/15
  */
-public class CrashBean {
+public class CrashBean extends LitePalSupport implements Serializable{
 
+    public long _id;
     public String crash;//crash信息
     public String phoneName;//手机品牌或者收集型号
     public String appVersion;//app版本号

@@ -1,21 +1,20 @@
-package com.alguojian.crash;
+package com.alguojian.logcrash;
 
 import android.app.Application;
 
-import org.litepal.LitePal;
+import com.alguojian.crash.CrashHandler;
 
 /**
  * ${Descript}
  *
  * @author alguojian
- * @date 2018/8/15
+ * @date 2018/8/16
  */
-public class MyApp extends Application {
-
+public class Mpapp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        LitePal.initialize(this);
+
         CrashHandler.getInstance().init(this);
     }
 }

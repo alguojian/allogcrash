@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alguojian.crash">
 
-    <application
-        android:name=".MyApp"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+    <application>
         <activity android:name=".CrashListActivity" />
         <activity android:name=".CrashDetailsActivity"></activity>
     </application>
