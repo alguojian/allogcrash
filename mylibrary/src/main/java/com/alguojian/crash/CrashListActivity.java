@@ -1,9 +1,12 @@
 package com.alguojian.crash;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -11,7 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -23,14 +29,28 @@ import java.util.List;
 
 public class CrashListActivity extends AppCompatActivity {
 
-    public static void start(Context context) {
+    public static void start(Activity context) {
         Intent starter = new Intent(context, CrashListActivity.class);
-        context.startActivity(starter);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            context.startActivity(starter, ActivityOptions.makeSceneTransitionAnimation(context).toBundle());
+        }else {
+            context.startActivity(starter);
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // 设置contentFeature,可使用切换动画
+            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+            Transition explode = TransitionInflater.from(this).inflateTransition(android.R.transition.explode);
+            getWindow().setEnterTransition(explode);
+        }
+
         setContentView(R.layout.activity_crash_list);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
@@ -50,7 +70,7 @@ public class CrashListActivity extends AppCompatActivity {
 
         final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.refresh);
 
-        swipeRefreshLayout.setColorSchemeColors(Color.GREEN);
+        swipeRefreshLayout.setColorSchemeColors(Color.RED);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
