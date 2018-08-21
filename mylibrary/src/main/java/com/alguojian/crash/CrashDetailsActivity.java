@@ -39,7 +39,7 @@ public class CrashDetailsActivity extends AppCompatActivity {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // 设置contentFeature,可使用切换动画
             getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-            Transition explode = TransitionInflater.from(this).inflateTransition(android.R.transition.slide_bottom);
+            Transition explode = TransitionInflater.from(this).inflateTransition(android.R.transition.fade);
             getWindow().setEnterTransition(explode);
         }
         setContentView(R.layout.activity_crash_details);

@@ -34,7 +34,7 @@ public class CrashListActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             context.startActivity(starter, ActivityOptions.makeSceneTransitionAnimation(context).toBundle());
-        }else {
+        } else {
             context.startActivity(starter);
         }
     }
@@ -47,7 +47,7 @@ public class CrashListActivity extends AppCompatActivity {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // 设置contentFeature,可使用切换动画
             getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-            Transition explode = TransitionInflater.from(this).inflateTransition(android.R.transition.explode);
+            Transition explode = TransitionInflater.from(this).inflateTransition(android.R.transition.fade);
             getWindow().setEnterTransition(explode);
         }
 
@@ -61,7 +61,7 @@ public class CrashListActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(crashAdapter);
 
-        crashAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM);
+        crashAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         crashAdapter.isFirstOnly(false);
 
         List<CrashBean> all = LitePal.findAll(CrashBean.class);
@@ -96,15 +96,22 @@ public class CrashListActivity extends AppCompatActivity {
                 new AlertDialog.Builder(CrashListActivity.this)
                         .setTitle("提示")
                         .setMessage("确定要删除吗？")
-                        .setNegativeButtonIcon(ContextCompat.getDrawable(CrashListActivity.this,R.drawable.common_complete_icon))
-                        .setNegativeButton(null, new DialogInterface.OnClickListener() {
+                        .setNeutralButton("删除全部", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                LitePal.deleteAll(CrashBean.class);
+                                crashAdapter.setNewData(null);
+                            }
+                        })
+                        .setPositiveButton("删除该条", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
                                 CrashBean crashBean = crashAdapter.getData().get(position);
                                 int delete = LitePal.delete(CrashBean.class, crashBean._id);
 
-                                if (1 == delete){
+                                if (1 == delete) {
                                     Toast.makeText(CrashListActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
                                 }
                                 crashAdapter.remove(position);
