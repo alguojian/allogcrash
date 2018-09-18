@@ -3,8 +3,14 @@
     package="com.alguojian.crash">
 
     <application>
-        <activity android:name=".CrashListActivity" />
-        <activity android:name=".CrashDetailsActivity"></activity>
+        <activity
+            android:name=".CrashListActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".CrashDetailsActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".CrashActivity"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

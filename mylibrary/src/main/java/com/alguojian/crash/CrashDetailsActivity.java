@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.CardView;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.View;
@@ -21,12 +22,12 @@ import java.util.regex.PatternSyntaxException;
 
 public class CrashDetailsActivity extends AppCompatActivity {
 
-    public static void start(Activity context, CrashBean crashBean) {
+    public static void start(Activity context, CrashBean crashBean, CardView cardView) {
         Intent starter = new Intent(context, CrashDetailsActivity.class);
         starter.putExtra("data", crashBean);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            context.startActivity(starter, ActivityOptions.makeSceneTransitionAnimation(context).toBundle());
+            context.startActivity(starter, ActivityOptions.makeSceneTransitionAnimation(context, cardView, "jump").toBundle());
         } else {
             context.startActivity(starter);
         }
@@ -36,19 +37,11 @@ public class CrashDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // 设置contentFeature,可使用切换动画
-            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-            Transition explode = TransitionInflater.from(this).inflateTransition(android.R.transition.fade);
-            getWindow().setEnterTransition(explode);
-        }
         setContentView(R.layout.activity_crash_details);
-
         CrashBean data = (CrashBean) getIntent().getSerializableExtra("data");
         TextView textView = findViewById(R.id.name);
         TextView textView1 = findViewById(R.id.text);
-        textView.setText(data.phoneName);
+        textView.setText(data.userId + data.phoneName);
         textView1.setText(data.crash);
-
     }
 }

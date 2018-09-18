@@ -6,11 +6,22 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.Log;
 
+import org.json.JSONObject;
 import org.litepal.LitePal;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * ${Descript}
@@ -61,10 +72,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         if (!handleException(ex) && mDefaultHandler != null) {
             // 如果用户没有处理则让系统默认的异常处理器来处理
             mDefaultHandler.uncaughtException(thread, ex);
-        } else {
-            // 退出程序
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(1);
         }
     }
 
@@ -99,33 +106,17 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             PackageInfo pi = pm.getPackageInfo(ctx.getPackageName(), PackageManager.GET_ACTIVITIES);
             if (pi != null) {
                 String versionName = pi.versionName == null ? "null" : pi.versionName;
-                String versionCode = pi.versionCode + "";
                 mStringBuffer.append("APP版本：" + versionName);
             }
         } catch (PackageManager.NameNotFoundException e) {
             Log.e(TAG, "an error occured when collect package info", e);
         }
         mStringBuffer
-//                .append("\n手机主板：").append(Build.BOARD)
-//                .append("\n系统启动程序版本号：").append(Build.BOOTLOADER)
+                .append("\n手机主板：").append(Build.BOARD)
                 .append("\n系统厂商：").append(Build.BRAND)
-//                .append("\ncpu指令集：").append(Build.CPU_ABI)
-//                .append("\ncpu指令集2：").append(Build.CPU_ABI2)
-//                .append("\n设置参数：").append(Build.DEVICE)
-//                .append("\n显示屏参数：").append(Build.DISPLAY)
-//                .append("\n无线电固件版本：").append(Build.getRadioVersion())
-//                .append("\n硬件识别码：").append(Build.FINGERPRINT)
-//                .append("\n硬件名称：").append(Build.HARDWARE)
-//                .append("\nHOST:").append(Build.HOST)
-//                .append("\n修订版本列表：").append(Build.ID)
-//                .append("\n硬件制造商：").append(Build.MANUFACTURER)
-                .append("\n系统版本：").append(Build.MODEL);
-//                .append("\n硬件序列号：").append(Build.SERIAL)
-//                .append("\n手机厂商：").append(Build.PRODUCT);
-//                .append("\n描述Build的标签：").append(Build.TAGS)
-//                .append("\nTIME:").append(Build.TIME)
-//                .append("\nbuilder类型：").append(Build.TYPE)
-//                .append("\nUSER:").append(Build.USER);
+                .append("\n系统版本：").append(Build.MODEL)
+                .append("\n手机版本：").append(Build.PRODUCT)
+                .append("\n硬件序列号：").append(Build.SERIAL);
     }
 
     /**
@@ -152,7 +143,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         crashBean.appVersion = getVersion(mContext);
         crashBean.crash = result;
         crashBean.time = System.currentTimeMillis();
+        crashBean.userId = LitePal.findFirst(OtherNewsBean.class).crash;
         crashBean.save();
+
         return null;
     }
 
@@ -164,6 +157,88 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             return manager.versionName;
         } catch (Exception e) {
             return "Unknown";
+        }
+    }
+
+    /**
+     * 设置一些其他信息，例如用户id等信息
+     *
+     * @param treeMap
+     */
+    public void setOtherNews(TreeMap<String, String> treeMap) {
+
+        LitePal.deleteAll(OtherNewsBean.class);
+        OtherNewsBean otherNewsBean = new OtherNewsBean();
+        StringBuilder stringBuilder = new StringBuilder(128);
+
+        for (Map.Entry<String, String> map : treeMap.entrySet()) {
+            stringBuilder.append(map.getKey() + "：" + map.getValue() + "\n");
+        }
+        otherNewsBean.crash = stringBuilder.toString();
+        otherNewsBean.save();
+    }
+
+    /**
+     * 设置钉钉机器人链接,必须在设置其他信息之后才可以操作
+     */
+    public void setDingDingLink(String s) {
+        OtherNewsBean first = LitePal.findFirst(OtherNewsBean.class);
+        first.dingding = s;
+        first.update(first._id);
+    }
+
+    public void postCrashToDingding() {
+
+        CrashBean first = LitePal.findLast(CrashBean.class);
+
+        if (first == null || first.crash == null) {
+            return;
+        }
+
+        try {
+
+            final JSONObject jsonObject = new JSONObject();
+            jsonObject.put("msgtype", "text");
+
+            JSONObject jsonObject1 = new JSONObject();
+            jsonObject1.put("content", first.toString());
+
+            jsonObject.put("text", jsonObject1);
+
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    URL url = null;
+                    try {
+
+                        url = new URL(LitePal.findFirst(OtherNewsBean.class).dingding);
+                        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                        httpURLConnection.setRequestMethod("POST");
+
+                        httpURLConnection.setDoInput(true);
+                        httpURLConnection.setDoOutput(true);
+
+                        httpURLConnection.setRequestProperty("Content-Type", "application/json");
+                        httpURLConnection.connect();
+                        OutputStreamWriter writer = new OutputStreamWriter(httpURLConnection.getOutputStream());
+                        writer.write(jsonObject.toString());
+                        writer.flush();
+                        BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream(), "UTF-8"));
+
+                        httpURLConnection.connect();
+                        br.close();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

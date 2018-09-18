@@ -3,11 +3,12 @@
 
     <dbname value="crash" />
 
-    <version value="3" />
+    <version value="4" />
 
 
     <list>
         <mapping class="com.alguojian.crash.CrashBean" />
+        <mapping class="com.alguojian.crash.OtherNewsBean" />
     </list>
 
     <storage value="external" />

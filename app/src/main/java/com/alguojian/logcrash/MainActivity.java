@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.alguojian.crash.CrashActivity;
+import com.alguojian.crash.CrashHandler;
 import com.alguojian.crash.CrashListActivity;
 
 import java.util.List;
@@ -21,24 +23,24 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CrashListActivity.start(MainActivity.this);
+                CrashActivity.start(MainActivity.this);
             }
         });
 
 
-      findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-              for (int i = 0; i < 100; i++) {
+        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i = 0; i < 100; i++) {
 
-                  aa.get(i);
-              }
+                    aa.get(i);
+                }
 
-              String aa = "123";
+                String aa = "123";
 
-              String bb = aa.substring(9, 123);
-          }
-      });
+                String bb = aa.substring(9, 123);
+            }
+        });
 
     }
 }

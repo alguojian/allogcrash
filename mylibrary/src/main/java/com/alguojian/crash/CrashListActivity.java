@@ -12,6 +12,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Transition;
@@ -47,13 +48,13 @@ public class CrashListActivity extends AppCompatActivity {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // 设置contentFeature,可使用切换动画
             getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-            Transition explode = TransitionInflater.from(this).inflateTransition(android.R.transition.fade);
+            Transition explode = TransitionInflater.from(this).inflateTransition(android.R.transition.explode);
             getWindow().setEnterTransition(explode);
         }
 
         setContentView(R.layout.activity_crash_list);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        final RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -65,6 +66,7 @@ public class CrashListActivity extends AppCompatActivity {
         crashAdapter.isFirstOnly(false);
 
         List<CrashBean> all = LitePal.findAll(CrashBean.class);
+
 
         crashAdapter.setNewData(all);
 
@@ -84,7 +86,7 @@ public class CrashListActivity extends AppCompatActivity {
         crashAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                CrashDetailsActivity.start(CrashListActivity.this, crashAdapter.getData().get(position));
+                CrashDetailsActivity.start(CrashListActivity.this, crashAdapter.getData().get(position), (CardView) crashAdapter.getViewByPosition(recyclerView,position,R.id.cardView));
             }
         });
 
