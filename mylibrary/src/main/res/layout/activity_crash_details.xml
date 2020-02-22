@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:paddingLeft="14dp"
     android:paddingRight="14dp"
+    android:background="#fff"
     tools:context=".CrashDetailsActivity">
 
     <LinearLayout
@@ -21,11 +22,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:lineSpacingMultiplier="1.3"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
+            android:textIsSelectable="true"
             tools:text="aAsdasdasdasdasdas奥术大师大所多" />
 
         <TextView
+            android:textIsSelectable="true"
             android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

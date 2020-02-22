@@ -19,13 +19,16 @@ import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import org.litepal.LitePal;
 import org.litepal.crud.DataSupport;
+import org.litepal.crud.LitePalSupport;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class CrashListActivity extends AppCompatActivity {
@@ -45,7 +48,7 @@ public class CrashListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // 设置contentFeature,可使用切换动画
             getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
             Transition explode = TransitionInflater.from(this).inflateTransition(android.R.transition.explode);
@@ -53,6 +56,11 @@ public class CrashListActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_crash_list);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            );
+        }
 
         final RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
@@ -65,8 +73,7 @@ public class CrashListActivity extends AppCompatActivity {
         crashAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         crashAdapter.isFirstOnly(false);
 
-        List<CrashBean> all = LitePal.findAll(CrashBean.class);
-
+        List<CrashBean> all = LitePal.order("time desc").find(CrashBean.class);
 
         crashAdapter.setNewData(all);
 
@@ -86,15 +93,13 @@ public class CrashListActivity extends AppCompatActivity {
         crashAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                CrashDetailsActivity.start(CrashListActivity.this, crashAdapter.getData().get(position), (CardView) crashAdapter.getViewByPosition(recyclerView,position,R.id.cardView));
+                CrashDetailsActivity.start(CrashListActivity.this, crashAdapter.getData().get(position), (CardView) crashAdapter.getViewByPosition(recyclerView, position, R.id.cardView));
             }
         });
 
         crashAdapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(BaseQuickAdapter adapter, View view, final int position) {
-
-
                 new AlertDialog.Builder(CrashListActivity.this)
                         .setTitle("提示")
                         .setMessage("确定要删除吗？")
@@ -119,8 +124,6 @@ public class CrashListActivity extends AppCompatActivity {
                                 crashAdapter.remove(position);
                             }
                         }).create().show();
-
-
                 return true;
             }
         });

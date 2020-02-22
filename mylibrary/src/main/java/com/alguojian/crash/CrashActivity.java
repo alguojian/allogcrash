@@ -11,13 +11,13 @@ import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 
 public class CrashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // 设置contentFeature,可使用切换动画
@@ -26,6 +26,10 @@ public class CrashActivity extends AppCompatActivity {
             getWindow().setEnterTransition(explode);
         }
         setContentView(R.layout.activity_crash);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
 
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override

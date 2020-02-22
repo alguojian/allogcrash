@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.json.JSONObject;
@@ -16,10 +17,9 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -115,8 +115,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                 .append("\n手机主板：").append(Build.BOARD)
                 .append("\n系统厂商：").append(Build.BRAND)
                 .append("\n系统版本：").append(Build.MODEL)
-                .append("\n手机版本：").append(Build.PRODUCT)
-                .append("\n硬件序列号：").append(Build.SERIAL);
+                .append("\n手机版本：").append(Build.PRODUCT);
     }
 
     /**
@@ -139,7 +138,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         String result = writer.toString();
 
         CrashBean crashBean = new CrashBean();
-        crashBean.phoneName = mStringBuffer.toString();
+        crashBean.phoneName = mStringBuffer.toString() + "\n触发时间：" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
         crashBean.appVersion = getVersion(mContext);
         crashBean.crash = result;
         crashBean.time = System.currentTimeMillis();
@@ -166,16 +165,18 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      * @param treeMap
      */
     public void setOtherNews(TreeMap<String, String> treeMap) {
-
         LitePal.deleteAll(OtherNewsBean.class);
-        OtherNewsBean otherNewsBean = new OtherNewsBean();
         StringBuilder stringBuilder = new StringBuilder(128);
 
         for (Map.Entry<String, String> map : treeMap.entrySet()) {
-            stringBuilder.append(map.getKey() + "：" + map.getValue() + "\n");
+            if (!TextUtils.isEmpty(map.getValue()))
+                stringBuilder.append(map.getKey() + "：" + map.getValue() + "\n");
         }
-        otherNewsBean.crash = stringBuilder.toString();
-        otherNewsBean.save();
+        if (!TextUtils.isEmpty(stringBuilder.toString())) {
+            OtherNewsBean otherNewsBean = new OtherNewsBean();
+            otherNewsBean.crash = stringBuilder.toString();
+            otherNewsBean.save();
+        }
     }
 
     /**
@@ -183,12 +184,14 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      */
     public void setDingDingLink(String s) {
         OtherNewsBean first = LitePal.findFirst(OtherNewsBean.class);
-        first.dingding = s;
-        first.update(first._id);
+        if (first == null) {
+            OtherNewsBean otherNewsBean = new OtherNewsBean();
+            otherNewsBean.dingding = s;
+            otherNewsBean.save();
+        }
     }
 
     public void postCrashToDingding() {
-
         CrashBean first = LitePal.findLast(CrashBean.class);
 
         if (first == null || first.crash == null) {
@@ -205,15 +208,16 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
             jsonObject.put("text", jsonObject1);
 
-
             new Thread(new Runnable() {
                 @Override
                 public void run() {
 
                     URL url = null;
                     try {
+                        String aaUrl = LitePal.findFirst(OtherNewsBean.class).dingding;
+                        System.out.println("---------" + aaUrl);
 
-                        url = new URL(LitePal.findFirst(OtherNewsBean.class).dingding);
+                        url = new URL(aaUrl);
                         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
                         httpURLConnection.setRequestMethod("POST");
@@ -232,12 +236,15 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                         br.close();
 
                     } catch (Exception e) {
+                        System.out.println("---------" + e.getMessage());
                         e.printStackTrace();
                     }
                 }
             }).start();
 
         } catch (Exception e) {
+            System.out.println("---------" + e.getMessage());
+
             e.printStackTrace();
         }
     }

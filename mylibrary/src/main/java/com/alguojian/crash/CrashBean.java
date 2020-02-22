@@ -1,5 +1,7 @@
 package com.alguojian.crash;
 
+import android.text.TextUtils;
+
 import org.litepal.crud.LitePalSupport;
 
 import java.io.Serializable;
@@ -23,9 +25,9 @@ public class CrashBean extends LitePalSupport implements Serializable {
 
     @Override
     public String toString() {
-        return userId + "\n" +
+        return TextUtils.isEmpty(userId) ? "" : userId + "\n" +
                 phoneName +
-                "\ntime=" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(time)) +
-                "\ncrash=" + crash;
+                "\n时 间         : " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(time)) +
+                "\n\n" + crash;
     }
 }

@@ -19,8 +19,8 @@ public class Mpapp extends Application {
 
         CrashHandler.getInstance().init(this);
         TreeMap<String, String> treeMap = new TreeMap<>();
-        treeMap.put("用户手机号","1111111111");
+        treeMap.put("用户手机号", null);
         CrashHandler.getInstance().setOtherNews(treeMap);
-        CrashHandler.getInstance().setDingDingLink("https://oapi.dingtalk.com/robot/send?access_token=04c3473dd02444a631eaee0b30415d6c49b0f2ec25b6f755d56e15d606a322c0");
+        CrashHandler.getInstance().setDingDingLink("https://oapi.dingtalk.com/robot/send?access_token=9dd82a4b444089a65fcfbb522fa789709170db6142e64a832ff79c637f180533");
     }
 }
