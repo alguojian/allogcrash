@@ -9,7 +9,8 @@
             android:theme="@style/AppTheme" />
 
         <activity
-            android:label="闪退日志"
+            android:icon="@drawable/aaaa"
+            android:label="崩溃log"
             android:name=".CrashListActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|locale"
             android:screenOrientation="portrait"

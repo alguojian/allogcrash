@@ -1,1 +1,1 @@
-include ':app', ':allogcrash_debug'
+include ':app', ':allogcrash_debug', ':allogcrash_release'

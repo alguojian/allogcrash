@@ -15,28 +15,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CrashActivity.start(MainActivity.this);
-            }
-        });
-
-
         findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 for (int i = 0; i < 100; i++) {
-
                     aa.get(i);
                 }
-
                 String aa = "123";
-
                 String bb = aa.substring(9, 123);
             }
         });
-
     }
 }
