@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * ${Descript}
+ * app闪退日志记录
  *
  * @author alguojian
  * @date 2018/8/15

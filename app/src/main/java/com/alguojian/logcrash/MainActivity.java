@@ -4,10 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.alguojian.crash.CrashActivity;
-import com.alguojian.crash.CrashHandler;
-import com.alguojian.crash.CrashListActivity;
-
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {

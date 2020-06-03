@@ -14,8 +14,9 @@ CrashHandler.getInstance().setOtherNews(treeMap);
 //设置钉钉机器人链接
 CrashHandler.getInstance().setDingDingLink("https://oapi.dingtalk.com/robot/send?access_token=04c3473dd02444a631eaee0b30415d6c49b0f2ec25b6f755d56e15d606a322c0");
 
-//跳转到bug管理页面
-CrashActivity.start(MainActivity.this);
+//推送最新一条bug到钉钉群组
+CrashHandler.getInstance().postCrashToDingding();
+
 
 
 ```
