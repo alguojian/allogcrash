@@ -3,8 +3,7 @@
 
     <dbname value="crash" />
 
-    <version value="4" />
-
+    <version value="1" />
 
     <list>
         <mapping class="com.alguojian.crash.CrashBean" />
