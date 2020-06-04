@@ -20,6 +20,14 @@ dependencies {
 
         debugImplementation 'com.github.alguojian.allogcrash:allogcrash_debug:3.0.6'
         releaseImplementation 'com.github.alguojian.allogcrash:allogcrash_release:3.0.6'
+
+
+        debugImplementation 'com.android.support:design:28.0.0'
+        debugImplementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
+        
+        //版本限制不超过3.0.0
+        debugImplementation 'org.litepal.android:kotlin:3.0.0'
+        debugImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 ```
 
