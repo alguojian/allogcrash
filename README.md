@@ -1,11 +1,18 @@
-# allogcrash 手机app闪退信息，推送到钉钉
+## allogcrash app崩溃日志，支持推送到钉钉群组
 
 ```
-implementation 'com.github.alguojian:allogcrash:2.0.0'
+使用如下
 
-//初始化
+debugImplementation 'com.github.alguojian.allogcrash:allogcrash_debug:3.0.3'
+releaseImplementation 'com.github.alguojian.allogcrash:allogcrash_release:3.0.3'
+
+//application中初始化
 CrashHandler.getInstance().init(this);
 
+```
+##### 以下可选
+
+```
 //设置一些信息
 TreeMap<String, String> treeMap = new TreeMap<>();
 treeMap.put("用户手机号","1111111111");
