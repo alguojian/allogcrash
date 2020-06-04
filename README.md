@@ -3,8 +3,8 @@
 ```
 使用如下
 
-debugImplementation 'com.github.alguojian.allogcrash:allogcrash_debug:3.0.3'
-releaseImplementation 'com.github.alguojian.allogcrash:allogcrash_release:3.0.3'
+debugImplementation 'com.github.alguojian.allogcrash:allogcrash_debug:3.0.5'
+releaseImplementation 'com.github.alguojian.allogcrash:allogcrash_release:3.0.5'
 
 //application中初始化
 CrashHandler.getInstance().init(this);

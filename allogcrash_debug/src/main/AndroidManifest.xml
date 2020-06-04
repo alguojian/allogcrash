@@ -2,30 +2,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alguojian.crash">
 
-    <application android:enabled="true"
-        android:allowBackup="true"
-        android:label="@string/app_name"
-        android:supportsRtl="true">
+    <application android:enabled="true">
 
         <activity
-            android:launchMode="singleInstance"
             android:name=".CrashDetailsActivity"
+            android:launchMode="singleInstance"
             android:theme="@style/AppTheme" />
 
         <activity
             android:name="com.alguojian.crash.CrashListActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|smallestScreenSize|locale"
-            android:exported="false"
             android:icon="@drawable/aaaa"
             android:label="崩溃日志"
-            android:launchMode="singleInstance"
+            android:taskAffinity="com.alguojian.crash.${applicationId}"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
         <activity-alias
             android:name="com.alguojian.crash.CrashLauncherActivity"
             android:enabled="true"
-            android:exported="false"
             android:icon="@drawable/aaaa"
             android:label="崩溃日志"
             android:targetActivity="com.alguojian.crash.CrashListActivity">
