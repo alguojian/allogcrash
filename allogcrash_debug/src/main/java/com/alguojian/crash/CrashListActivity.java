@@ -98,10 +98,9 @@ public class CrashListActivity extends AppCompatActivity {
                 new AlertDialog.Builder(CrashListActivity.this)
                         .setTitle("提示")
                         .setMessage("确定要删除吗？")
-                        .setNeutralButton("删除全部", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("删除全部", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                                 LitePal.deleteAll(CrashBean.class);
                                 crashAdapter.setNewData(null);
                             }

@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:lineSpacingMultiplier="1.3"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:textStyle="bold"
             android:textIsSelectable="true"
             tools:text="aAsdasdasdasdasdas奥术大师大所多" />
@@ -35,7 +35,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="20dp"
             android:lineSpacingMultiplier="1.1"
-            android:textSize="18sp" />
+            android:textSize="18dp" />
 
     </LinearLayout>
 

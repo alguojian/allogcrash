@@ -21,7 +21,11 @@ public class CrashAdapter extends BaseQuickAdapter<CrashBean, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, CrashBean item) {
 
-        helper.setText(R.id.title, item.crash.substring(0,50));
+        if (item.crash.length() >= 62){
+            helper.setText(R.id.title, item.crash.substring(0, 61));
+        }else {
+            helper.setText(R.id.title, item.crash);
+        }
         helper.setText(R.id.time, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(item.time)));
     }
 }
