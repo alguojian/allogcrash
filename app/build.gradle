@@ -16,6 +16,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    allprojects {
+        repositories {
+            maven { url 'https://jitpack.io' }
+        }
+    }
 }
 
 dependencies {
@@ -27,5 +33,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     debugImplementation project(':allogcrash_debug')
     releaseImplementation project(':allogcrash_release')
+//    debugImplementation 'com.github.alguojian.allogcrash:allogcrash_debug:3.0.0'
+//    releaseImplementation 'com.github.alguojian.allogcrash:allogcrash_release:3.0.0'
+
 
 }

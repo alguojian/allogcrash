@@ -2,16 +2,14 @@ package com.alguojian.crash;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,16 +17,12 @@ import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import org.litepal.LitePal;
-import org.litepal.crud.DataSupport;
-import org.litepal.crud.LitePalSupport;
 
-import java.util.Comparator;
 import java.util.List;
 
 public class CrashListActivity extends AppCompatActivity {
@@ -93,7 +87,8 @@ public class CrashListActivity extends AppCompatActivity {
         crashAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                CrashDetailsActivity.start(CrashListActivity.this, crashAdapter.getData().get(position), (CardView) crashAdapter.getViewByPosition(recyclerView, position, R.id.cardView));
+                CrashDetailsActivity.start(CrashListActivity.this, crashAdapter.getData().get(position),
+                        (CardView) crashAdapter.getViewByPosition(recyclerView, position, R.id.cardView));
             }
         });
 
