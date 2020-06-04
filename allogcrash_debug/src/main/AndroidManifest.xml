@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alguojian.crash">
 
-    <application android:enabled="true">
+    <application>
 
         <activity
             android:name=".CrashDetailsActivity"
@@ -10,7 +10,7 @@
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name="com.alguojian.crash.CrashListActivity"
+            android:name=".CrashListActivity"
             android:icon="@drawable/aaaa"
             android:label="崩溃日志"
             android:taskAffinity="com.alguojian.crash.${applicationId}"
@@ -19,10 +19,9 @@
 
         <activity-alias
             android:name="com.alguojian.crash.CrashLauncherActivity"
-            android:enabled="true"
             android:icon="@drawable/aaaa"
             android:label="崩溃日志"
-            android:targetActivity="com.alguojian.crash.CrashListActivity">
+            android:targetActivity=".CrashListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

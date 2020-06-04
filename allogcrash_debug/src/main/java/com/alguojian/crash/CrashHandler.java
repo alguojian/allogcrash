@@ -1,5 +1,6 @@
 package com.alguojian.crash;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -31,7 +32,7 @@ import java.util.TreeMap;
  */
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
-    public static final String TAG = "CrashHandler";
+    private static final String TAG = "CrashHandler";
     private static CrashHandler INSTANCE = new CrashHandler();
     private Thread.UncaughtExceptionHandler mDefaultHandler;
     private Context mContext;
@@ -52,10 +53,8 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     /**
      * 初始化
-     *
-     * @param context
      */
-    public void init(Context context) {
+    public void init(Application context) {
         mContext = context;
         // 获取系统默认的UncaughtException处理器
         mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
@@ -78,7 +77,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     /**
      * 自定义错误处理,收集错误信息 发送错误报告等操作均在此完成.
      *
-     * @param ex
      * @return true:如果处理了该异常信息;否则返回false.
      */
     private boolean handleException(Throwable ex) {
@@ -95,11 +93,8 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     /**
      * 收集设备参数信息
-     *
-     * @param ctx
      */
-    public void collectDeviceInfo(Context ctx) {
-
+    private void collectDeviceInfo(Context ctx) {
         mStringBuffer = new StringBuffer(128);
         try {
             PackageManager pm = ctx.getPackageManager();
@@ -109,7 +104,8 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                 mStringBuffer.append("APP版本：" + versionName);
             }
         } catch (PackageManager.NameNotFoundException e) {
-            Log.e(TAG, "an error occured when collect package info", e);
+            e.printStackTrace();
+            Log.e(TAG, "-----------an error occured when collect package info-------------", e);
         }
         mStringBuffer
                 .append("\n手机主板：").append(Build.BOARD)
@@ -120,12 +116,8 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     /**
      * 保存错误信息到文件中
-     *
-     * @param ex
-     * @return 返回文件名称, 便于将文件传送到服务器
      */
-    private String saveCrashInfo2File(Throwable ex) {
-
+    private void saveCrashInfo2File(Throwable ex) {
         Writer writer = new StringWriter();
         PrintWriter printWriter = new PrintWriter(writer);
         ex.printStackTrace(printWriter);
@@ -144,8 +136,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         crashBean.time = System.currentTimeMillis();
         crashBean.userId = LitePal.findFirst(OtherNewsBean.class).crash;
         crashBean.save();
-
-        return null;
     }
 
     // 取得版本号
@@ -161,8 +151,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     /**
      * 设置一些其他信息，例如用户id等信息
-     *
-     * @param treeMap
      */
     public void setOtherNews(TreeMap<String, String> treeMap) {
         LitePal.deleteAll(OtherNewsBean.class);
