@@ -42,7 +42,7 @@ object CrashHandler : Thread.UncaughtExceptionHandler {
      */
     @JvmStatic
     @JvmOverloads
-    fun init(context: Application?, alreadyUsed: Boolean = false) {
+    fun initThis(context: Application?, alreadyUsed: Boolean = false) {
         mContext = context
         // 获取系统默认的UncaughtException处理器
         mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler()

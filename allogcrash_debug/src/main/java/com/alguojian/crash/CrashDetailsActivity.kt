@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.CardView
 import android.text.TextUtils
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 
 class CrashDetailsActivity : AppCompatActivity() {
@@ -30,7 +31,7 @@ class CrashDetailsActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun start(context: Activity, crashBean: CrashBean?, cardView: CardView?) {
+        fun start(context: Activity, crashBean: CrashBean?, cardView: LinearLayout?) {
             val starter = Intent(context, CrashDetailsActivity::class.java)
             starter.putExtra("data", crashBean)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

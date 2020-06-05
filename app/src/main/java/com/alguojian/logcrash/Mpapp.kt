@@ -13,7 +13,7 @@ import java.util.*
 class Mpapp : Application() {
     override fun onCreate() {
         super.onCreate()
-        CrashHandler.init(this)
+        CrashHandler.initThis(this)
         val treeMap = TreeMap<String, String?>()
         treeMap["用户手机号"] = null
         CrashHandler.setOtherNews(treeMap)

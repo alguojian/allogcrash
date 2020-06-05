@@ -18,8 +18,8 @@ allprojects {
 
 dependencies {
 
-        debugImplementation 'com.github.alguojian.allogcrash:allogcrash_debug:3.0.6'
-        releaseImplementation 'com.github.alguojian.allogcrash:allogcrash_release:3.0.6'
+        debugImplementation 'com.github.alguojian.allogcrash:allogcrash_debug:3.0.7'
+        releaseImplementation 'com.github.alguojian.allogcrash:allogcrash_release:3.0.7'
 
 
         debugImplementation 'com.android.support:design:28.0.0'
@@ -34,7 +34,7 @@ dependencies {
 ```
 //application中初始化
 
- CrashHandler.init(this)
+ CrashHandler.initThis(this)
  
  ```
 
@@ -60,7 +60,7 @@ dependencies {
 ##### 如果项目中已经使用litepal那么初始化时使用以下防止多次初始化
 
 ```
-  CrashHandler.init(this,true)
+  CrashHandler.initThis(this,true)
   
   然后直接在litepal.xml文件中插入以下两条配置
   

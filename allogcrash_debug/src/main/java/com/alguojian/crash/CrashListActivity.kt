@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView
 import android.transition.TransitionInflater
 import android.view.View
 import android.view.Window
+import android.widget.LinearLayout
 import android.widget.Toast
 import com.chad.library.adapter.base.BaseQuickAdapter
 import org.litepal.LitePal.delete
@@ -38,18 +39,16 @@ class CrashListActivity : AppCompatActivity() {
         recyclerView.adapter = crashAdapter
         crashAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN)
         crashAdapter.isFirstOnly(false)
-        val all = order("time desc").find(CrashBean::class.java)
-        crashAdapter.setNewData(all)
+        crashAdapter.setNewData(order("time desc").find(CrashBean::class.java))
         val swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.refresh)
         swipeRefreshLayout.setColorSchemeColors(Color.RED)
         swipeRefreshLayout.setOnRefreshListener {
-            val all = findAll(CrashBean::class.java)
-            crashAdapter.setNewData(all)
+            crashAdapter.setNewData(order("time desc").find(CrashBean::class.java))
             swipeRefreshLayout.isRefreshing = false
         }
         crashAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             CrashDetailsActivity.start(this@CrashListActivity, crashAdapter.data[position],
-                    crashAdapter.getViewByPosition(recyclerView, position, R.id.cardView) as CardView?)
+                    crashAdapter.getViewByPosition(recyclerView, position, R.id.cardView) as LinearLayout?)
         }
         crashAdapter.onItemLongClickListener = BaseQuickAdapter.OnItemLongClickListener { adapter, view, position ->
             AlertDialog.Builder(this@CrashListActivity)
