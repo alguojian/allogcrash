@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 for (int i = 0; i < 100; i++) {
-                    aa.get(i);
+                    aa.get(1111);
                 }
                 String aa = "123";
                 String bb = aa.substring(9, 123);

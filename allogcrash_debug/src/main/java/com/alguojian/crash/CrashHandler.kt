@@ -16,6 +16,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 /**
  * app闪退日志记录
@@ -42,13 +43,13 @@ object CrashHandler : Thread.UncaughtExceptionHandler {
      */
     @JvmStatic
     @JvmOverloads
-    fun initThis(context: Application?, alreadyUsed: Boolean = false) {
+    fun initThis(context: Application, alreadyUsed: Boolean = false) {
         mContext = context
         // 获取系统默认的UncaughtException处理器
         mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler()
         // 设置该CrashHandler为程序的默认处理器
         Thread.setDefaultUncaughtExceptionHandler(this)
-        if (!alreadyUsed) initialize(context!!)
+        if (!alreadyUsed) initialize(context)
     }
 
     /**
@@ -142,10 +143,10 @@ object CrashHandler : Thread.UncaughtExceptionHandler {
      * 设置一些其他信息，例如用户id等信息
      */
     @JvmStatic
-    fun setOtherNews(treeMap: TreeMap<String, String?>) {
+    fun setOtherNews(hashMap: HashMap<String, String?>) {
         deleteAll(OtherNewsBean::class.java)
         val stringBuilder = StringBuilder(128)
-        for ((key, value) in treeMap) {
+        for ((key, value) in hashMap) {
             if (!TextUtils.isEmpty(value))
                 stringBuilder.append("""$key：$value""".trimIndent())
         }

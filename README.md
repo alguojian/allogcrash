@@ -18,8 +18,8 @@ allprojects {
 
 dependencies {
 
-        debugImplementation 'com.github.alguojian.allogcrash:allogcrash_debug:3.0.7'
-        releaseImplementation 'com.github.alguojian.allogcrash:allogcrash_release:3.0.7'
+        debugImplementation 'com.github.alguojian.allogcrash:allogcrash_debug:3.0.8'
+        releaseImplementation 'com.github.alguojian.allogcrash:allogcrash_release:3.0.8'
 
 
         debugImplementation 'com.android.support:design:28.0.0'
