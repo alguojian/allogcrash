@@ -6,11 +6,11 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.CardView
 import android.text.TextUtils
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_crash_details.*
 
 class CrashDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,15 +28,6 @@ class CrashDetailsActivity : AppCompatActivity() {
             textView.text = data.userId + data.phoneName
         }
         textView1.text = data.crash
-
-        fab.setOnClickListener {
-            var shareIntent = Intent()
-            shareIntent.action = Intent.ACTION_SEND
-            shareIntent.type = "text/plain"
-            shareIntent.putExtra(Intent.EXTRA_TEXT, data.crash)
-            shareIntent = Intent.createChooser(shareIntent, "日志详情")
-            startActivity(shareIntent)
-        }
     }
 
     companion object {

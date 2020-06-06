@@ -47,7 +47,6 @@ dependencies {
     debugImplementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
     debugImplementation 'org.litepal.android:kotlin:3.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
     implementation 'com.iqiyi.xcrash:xcrash-android-lib:2.4.9'
 
 }

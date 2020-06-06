@@ -4,20 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="6dp"
     android:layout_marginRight="10dp"
     android:layout_marginBottom="6dp"
     android:background="@drawable/common_ffffff_radius_bg"
     android:orientation="vertical"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"
     android:paddingLeft="12dp"
     android:paddingRight="12dp">
 
     <TextView
-        android:lineSpacingMultiplier="1.2"
-        tools:text="jajajskjdalskdjalksdjklamdflalksdjklamdflakwmdlksdjklamdflakwmdkwmd"
+        android:text="jajajskjdalskdjalksdjklamdflakwmd"
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +23,6 @@
         android:textSize="18dp" />
 
     <TextView
-        tools:text="jajajskjdalskdjalksdjklamdflakwmd"
         android:id="@+id/time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

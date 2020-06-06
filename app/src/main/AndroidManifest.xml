@@ -21,6 +21,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity
+            android:name="com.alguojian.crash.CrashListActivity"
+            android:icon="@drawable/aaaa"
+            android:label="崩溃日志"
+            android:taskAffinity="com.alguojian.crash.${applicationId}"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity-alias
+            android:name="com.alguojian.crash.CrashLauncherActivity"
+            android:icon="@drawable/aaaa"
+            android:label="崩溃日志"
+            android:targetActivity="com.alguojian.crash.CrashListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
+        </activity-alias>
+
+
     </application>
 
 </manifest>

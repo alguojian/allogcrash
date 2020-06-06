@@ -5,10 +5,8 @@ import android.content.Context
 import com.alguojian.crash.CrashHandler
 
 /**
- * ${Descript}
- *
  * @author alguojian
- * @date 2018/8/16
+ * @date 2020/06/06
  */
 class Mpapp : Application() {
     override fun onCreate() {

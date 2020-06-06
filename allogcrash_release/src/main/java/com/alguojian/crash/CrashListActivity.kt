@@ -46,11 +46,11 @@ class CrashListActivity : AppCompatActivity() {
             crashAdapter.setNewData(order("time desc").find(CrashBean::class.java))
             swipeRefreshLayout.isRefreshing = false
         }
-        crashAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { _, _, position ->
+        crashAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             CrashDetailsActivity.start(this@CrashListActivity, crashAdapter.data[position],
                     crashAdapter.getViewByPosition(recyclerView, position, R.id.cardView) as LinearLayout?)
         }
-        crashAdapter.onItemLongClickListener = BaseQuickAdapter.OnItemLongClickListener { _, _, position ->
+        crashAdapter.onItemLongClickListener = BaseQuickAdapter.OnItemLongClickListener { adapter, view, position ->
             AlertDialog.Builder(this@CrashListActivity)
                     .setTitle("提示")
                     .setMessage("确定要删除吗？")
