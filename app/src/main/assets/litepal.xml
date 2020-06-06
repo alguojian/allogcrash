@@ -6,8 +6,8 @@
     <version value="1" />
 
     <list>
-        <mapping class="com.alguojian.crash.CrashBean" />
-        <mapping class="com.alguojian.crash.OtherNewsBean" />
+        <mapping class="com.alguojian.logcrash.CrashBean" />
+        <mapping class="com.alguojian.logcrash.OtherNewsBean" />
     </list>
 
     <storage value="external" />

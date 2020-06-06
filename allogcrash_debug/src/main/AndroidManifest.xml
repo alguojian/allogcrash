@@ -4,11 +4,28 @@
 
     <application>
 
-        <activity
-            android:name=".CrashDetailsActivity"
+        <activity android:name="com.alguojian.logcrash.CrashDetailsActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
+        <activity
+            android:name="com.alguojian.logcrash.CrashListActivity"
+            android:icon="@drawable/aaaa"
+            android:label="崩溃日志"
+            android:taskAffinity="com.alguojian.crash.${applicationId}"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
 
+        <activity-alias
+            android:name="com.alguojian.crash.CrashLauncherActivity"
+            android:icon="@drawable/aaaa"
+            android:label="崩溃日志"
+            android:targetActivity="com.alguojian.logcrash.CrashListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
+        </activity-alias>
     </application>
-
 </manifest>

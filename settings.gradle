@@ -1,1 +1,3 @@
+include ':allogcrash_release_data'
+include ':logcrash'
 include ':app', ':allogcrash_debug', ':allogcrash_release'

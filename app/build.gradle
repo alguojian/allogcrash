@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.alguojian.logcrash"
+        applicationId "com.alguojian.app"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
@@ -41,15 +41,15 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    debugImplementation project(':allogcrash_debug')
-    releaseImplementation project(':allogcrash_release')
-    debugImplementation 'com.android.support:design:28.0.0'
-    debugImplementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
     debugImplementation 'org.litepal.android:kotlin:3.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.iqiyi.xcrash:xcrash-android-lib:2.4.9'
 
-}
-repositories {
-    mavenCentral()
+
+    debugImplementation project(':allogcrash_debug')
+    releaseImplementation project(':allogcrash_release')
+//    releaseImplementation project(':allogcrash_release_data')
+
 }

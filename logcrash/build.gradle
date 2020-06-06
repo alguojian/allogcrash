@@ -1,8 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.github.dcendents.android-maven'
-group = 'com.github.alguojian'
 
 android {
     compileSdkVersion 28
@@ -32,11 +30,14 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    compileOnly 'com.android.support.constraint:constraint-layout:1.1.3'
     compileOnly 'com.android.support:appcompat-v7:28.0.0'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    api project(':logcrash')
+    compileOnly 'com.android.support:design:28.0.0'
+    compileOnly 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
+    compileOnly 'org.litepal.android:kotlin:3.0.0'
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
