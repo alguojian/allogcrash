@@ -6,7 +6,6 @@
 
         <activity
             android:name="com.alguojian.logcrash.CrashDetailsActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
         <activity

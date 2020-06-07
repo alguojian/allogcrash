@@ -10,7 +10,6 @@ import android.text.TextUtils
 import android.transition.TransitionInflater
 import android.view.View
 import android.view.Window
-import android.widget.LinearLayout
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_crash_details.*
 

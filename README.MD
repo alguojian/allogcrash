@@ -19,13 +19,13 @@ allprojects {
 dependencies {
 
         //debug 版本
-        debugImplementation 'com.github.alguojian.allogcrash:allogcrash_debug:4.0.0'
+        debugImplementation 'com.github.alguojian.allogcrash:allogcrash_debug:4.0.5'
 
         //release版本，不包含逻辑代码
-        releaseImplementation 'com.github.alguojian.allogcrash:allogcrash_release:4.0.0'
+        releaseImplementation 'com.github.alguojian.allogcrash:allogcrash_release:4.0.5'
 
         //release_data版本，包含bug拦截，不提供桌面入口
-        releaseImplementation 'com.github.alguojian.allogcrash:allogcrash_release_data:4.0.0'
+        releaseImplementation 'com.github.alguojian.allogcrash:allogcrash_release_data:4.0.5'
 
         //通过一下打开bug统计列表
         LogCrashOpenUtils.open(button,this@MainActivity)
