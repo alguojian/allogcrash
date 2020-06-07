@@ -20,6 +20,6 @@ public class CrashBean extends LitePalSupport implements Serializable {
     public String userId;//用户iD
 
     public String getCrash() {
-        return crash.replaceAll("\n", " ").replaceAll("\t", " ");
+        return crash.replaceAll("\n", " ").replaceAll("\t", "");
     }
 }
