@@ -47,9 +47,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.iqiyi.xcrash:xcrash-android-lib:2.4.9'
 
-    debugImplementation 'com.github.alguojian.allogcrash:allogcrash_debug:4.0.5'
-//    debugImplementation project(':allogcrash_debug')
-//    releaseImplementation project(':allogcrash_release')
-//    releaseImplementation project(':allogcrash_release_data')
+    debugImplementation project(':allogcrash_debug')
+    releaseImplementation project(':allogcrash_release_data')
 
 }

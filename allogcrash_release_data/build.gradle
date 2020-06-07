@@ -36,7 +36,7 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    api 'com.github.alguojian.allogcrash:logcrash:4.0.5'
+    api 'com.github.alguojian.allogcrash:logcrash:4.0.6'
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 

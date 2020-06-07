@@ -19,13 +19,13 @@ allprojects {
 dependencies {
 
         //debug 版本
-        debugImplementation 'com.github.alguojian.allogcrash:allogcrash_debug:4.0.5'
+        debugImplementation 'com.github.alguojian.allogcrash:allogcrash_debug:4.0.7'
 
         //release版本，不包含逻辑代码
-        releaseImplementation 'com.github.alguojian.allogcrash:allogcrash_release:4.0.5'
+        releaseImplementation 'com.github.alguojian.allogcrash:allogcrash_release:4.0.7'
 
         //release_data版本，包含bug拦截，不提供桌面入口
-        releaseImplementation 'com.github.alguojian.allogcrash:allogcrash_release_data:4.0.5'
+        releaseImplementation 'com.github.alguojian.allogcrash:allogcrash_release_data:4.0.7'
 
         //通过一下打开bug统计列表
         LogCrashOpenUtils.open(button,this@MainActivity)
@@ -57,8 +57,8 @@ dependencies {
     <version value="1" />
     
     <list>
-        <mapping class="com.alguojian.crash.CrashBean" />
-        <mapping class="com.alguojian.crash.OtherNewsBean" />
+        <mapping class="com.alguojian.logcrash.CrashBean" />
+        <mapping class="com.alguojian.logcrash.OtherNewsBean" />
     </list>
 
     <storage value="external" />
@@ -74,8 +74,8 @@ dependencies {
   然后直接在litepal.xml文件中插入以下两条配置
   
   <list>
-      <mapping class="com.alguojian.crash.CrashBean" />
-      <mapping class="com.alguojian.crash.OtherNewsBean" />
+      <mapping class="com.alguojian.logcrash.CrashBean" />
+      <mapping class="com.alguojian.logcrash.OtherNewsBean" />
   </list>
 
 ```
